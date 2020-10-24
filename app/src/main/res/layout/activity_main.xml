@@ -21,11 +21,11 @@
         app:doubleLift_startOrientation="horizontal"
         app:doubleLift_verticalDuration="300">
 
-        <include
-            android:id="@+id/include1"
-            layout="@layout/sub_get_link"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/transparent" />
 
     </com.skydoves.doublelift.DoubleLiftLayout>
 
@@ -43,11 +43,11 @@
         app:doubleLift_startOrientation="horizontal"
         app:doubleLift_verticalDuration="300">
 
-        <include
-            android:id="@+id/include2"
-            layout="@layout/sub_set_link"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/transparent" />
 
     </com.skydoves.doublelift.DoubleLiftLayout>
 
@@ -65,11 +65,11 @@
         app:doubleLift_startOrientation="horizontal"
         app:doubleLift_verticalDuration="300">
 
-        <include
-            android:id="@+id/include3"
-            layout="@layout/sub_set_file"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/transparent" />
 
     </com.skydoves.doublelift.DoubleLiftLayout>
 
@@ -87,33 +87,39 @@
         app:doubleLift_startOrientation="horizontal"
         app:doubleLift_verticalDuration="300">
 
-        <include
-            android:id="@+id/include4"
-            layout="@layout/sub_set_memo"
+        <TextView
             android:layout_width="match_parent"
-            android:layout_height="match_parent" />
+            android:layout_height="match_parent"
+            android:text=""
+            android:textColor="@color/transparent" />
 
     </com.skydoves.doublelift.DoubleLiftLayout>
+
+    <FrameLayout
+        android:id="@+id/framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingLeft="110dp" />
 
     <Button
         android:id="@+id/bt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Get link" />
+        android:text="Get link  " />
 
     <Button
         android:id="@+id/bt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bt1"
-        android:text="Set Link" />
+        android:text="Set Link  " />
 
     <Button
         android:id="@+id/bt3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bt2"
-        android:text="Set File" />
+        android:text="Set File   " />
 
     <Button
         android:id="@+id/bt4"
