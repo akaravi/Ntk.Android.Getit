@@ -20,6 +20,7 @@ import ntk.android.getit.config.ConfigStaticValue;
 import ntk.android.getit.view.helpers.MainHelper;
 import ntk.base.api.core.interfase.ICoreGet;
 import ntk.base.api.core.model.CaptchaResponce;
+import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
 import ntk.base.api.utill.RetrofitManager;
 
 public class MainActivity extends BaseActivity {
@@ -30,36 +31,10 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         helper = new MainHelper(findViewById(R.id.mainLinear));
-        //get captcha
-        RetrofitManager retro = new RetrofitManager(this);
-        ICoreGet iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(this).GetApiBaseUrl()).create(ICoreGet.class);
-        Map<String, String> headers = new ConfigRestHeader().GetHeaders(this);
-        Observable<CaptchaResponce> Call = iTicket.GetCaptcha(headers);
-        Call.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<CaptchaResponce>() {
-                    @Override
-                    public void onSubscribe(@NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@NonNull CaptchaResponce captchaResponce) {
-                        TicketingApp.SET_CAPTCHA(captchaResponce);
-
-                    }
-
-                    @Override
-                    public void onError(@NonNull Throwable e) {
-                        Toasty.warning(MainActivity.this, "خطای سامانه", Toasty.LENGTH_LONG, true).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
 
     }
 
+    public void showResultFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
+        //todo show fragmnet
+    }
 }
