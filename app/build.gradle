@@ -56,6 +56,8 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
     //for lottie
     implementation 'com.airbnb.android:lottie:3.4.2'
+    //for button
+    implementation 'com.github.medyo:fancybuttons:1.9.1'
     //navigaiton bottom
     implementation "com.github.skydoves:doublelift:1.0.3"
     //for base
