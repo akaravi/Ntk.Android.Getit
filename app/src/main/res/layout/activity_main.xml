@@ -95,26 +95,26 @@
         android:id="@+id/bt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="lift1" />
+        android:text="Get link" />
 
     <Button
         android:id="@+id/bt2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bt1"
-        android:text="lift1" />
+        android:text="Set Link" />
 
     <Button
         android:id="@+id/bt3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bt2"
-        android:text="lift1" />
+        android:text="Set File" />
 
     <Button
         android:id="@+id/bt4"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/bt3"
-        android:text="lift1" />
+        android:text="Set Memo" />
 </RelativeLayout>

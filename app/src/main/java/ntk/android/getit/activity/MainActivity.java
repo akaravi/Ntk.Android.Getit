@@ -30,6 +30,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         helper = new MainHelper(findViewById(R.id.mainLinear));
+        //get captcha
         RetrofitManager retro = new RetrofitManager(this);
         ICoreGet iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(this).GetApiBaseUrl()).create(ICoreGet.class);
         Map<String, String> headers = new ConfigRestHeader().GetHeaders(this);
