@@ -16,8 +16,13 @@ import ntk.android.getit.utill.FontManager;
 import ntk.base.api.core.model.CaptchaResponce;
 
 public class TicketingApp extends MultiDexApplication {
-    private static CaptchaResponce responce;
+    private  CaptchaResponce responce;
     public static boolean Inbox = false;
+    private static  TicketingApp ourInstance;
+
+   public static TicketingApp getInstance() {
+        return ourInstance;
+    }
 
     @Override
     public void onCreate() {
@@ -45,12 +50,12 @@ public class TicketingApp extends MultiDexApplication {
         MultiDex.install(base);
     }
 
-    public static void RENEW_CAPTCHA(CaptchaResponce captchaResponce) {
+    public  void renewCaptcha(CaptchaResponce captchaResponce) {
 //        DateTime( captchaResponce.Item.Expire)
     }
 
-    public static void SET_CAPTCHA(CaptchaResponce captcha) {
+    public  void setCaptcha(CaptchaResponce captcha) {
     }
-    public static void GET_CAPTCHA() {
+    public  void getCaptcha() {
     }
 }

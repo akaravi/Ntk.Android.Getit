@@ -1,6 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:paddingLeft="123dp"
+    android:paddingRight="16dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="you can Get Created short Link Only By key"
+        android:textColor="#fff" />
+
+    <EditText
+        android:id="@+id/shortLinkEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="***@*****"
+        android:maxLength="9"
+        android:textColor="#fff" />
+
+    <ImageView
+        android:id="@+id/captchaImg"
+        android:layout_width="200dp"
+        android:layout_height="100dp" />
+
+    <EditText
+        android:id="@+id/captchaEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#fff" />
+
+    <Button
+        android:id="@+id/generateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Get Link" />
+</LinearLayout>
