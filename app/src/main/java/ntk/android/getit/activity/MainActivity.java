@@ -7,6 +7,7 @@ import androidx.annotation.Nullable;
 import ntk.android.getit.R;
 import ntk.android.getit.view.helpers.MainHelper;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
+import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetResponce;
 
 public class MainActivity extends BaseActivity {
     MainHelper helper;
@@ -19,7 +20,12 @@ public class MainActivity extends BaseActivity {
 
     }
 
-    public void showResultFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
-        helper.showResultFragment(linkResponse);
+    public void showResultGetFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
+        helper.showResultGetFragment(linkResponse);
+    }
+
+    public void showResultSetFragment(LinkManagementTargetActShortLinkSetResponce linkResponse) {
+        helper.showResultSetFragment(linkResponse);
+
     }
 }

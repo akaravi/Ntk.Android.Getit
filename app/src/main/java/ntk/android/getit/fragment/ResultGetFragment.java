@@ -5,6 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import com.google.gson.Gson;
@@ -14,10 +16,10 @@ import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetRespo
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link ResultFragment#newInstance} factory method to
+ * Use the {@link ResultGetFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class ResultFragment extends Fragment {
+public class ResultGetFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -35,8 +37,8 @@ public class ResultFragment extends Fragment {
      * @return A new instance of fragment Result.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultFragment newInstance(String param1) {
-        ResultFragment fragment = new ResultFragment();
+    public static ResultGetFragment newInstance(String param1) {
+        ResultGetFragment fragment = new ResultGetFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
 
@@ -59,4 +61,9 @@ public class ResultFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_result, container, false);
     }
 
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        //todo shwo result
+    }
 }

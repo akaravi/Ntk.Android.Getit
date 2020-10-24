@@ -6,5 +6,21 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="asdw" />
+        android:text="Set Short Link qwp.ir" />
+
+    <EditText
+        android:id="@+id/urlAddressEt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Url address" />
+    <include
+        layout="@layout/sub_captcha"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <Button
+        android:id="@+id/generateBtn"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Set Link" />
 </RelativeLayout>

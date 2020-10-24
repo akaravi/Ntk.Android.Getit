@@ -64,10 +64,10 @@ public class GetLinkFragment extends BaseFragment {
         req.CaptchaText = captchaText;
         req.Key = keyText;
         req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
-        callapi(req);
+        callShortLinkGetApi(req);
     }
 
-    private void callapi(LinkManagementTargetActShortLinkGetRequest req) {
+    protected void callShortLinkGetApi(LinkManagementTargetActShortLinkGetRequest req) {
         //get captcha
         RetrofitManager retro = new RetrofitManager(getContext());
         ILinkManagement iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(ILinkManagement.class);
@@ -84,7 +84,7 @@ public class GetLinkFragment extends BaseFragment {
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull LinkManagementTargetActShortLinkGetResponce linkResponse) {
                         if (linkResponse.IsSuccess)
-                            ((MainActivity) getActivity()).showResultFragment(linkResponse);
+                            ((MainActivity) getActivity()).showResultGetFragment(linkResponse);
                         else
                             Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
                     }

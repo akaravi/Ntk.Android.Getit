@@ -13,11 +13,12 @@ import ntk.android.getit.R;
 import ntk.android.getit.activity.MainActivity;
 import ntk.android.getit.fragment.BaseFragment;
 import ntk.android.getit.fragment.GetLinkFragment;
-import ntk.android.getit.fragment.ResultFragment;
+import ntk.android.getit.fragment.ResultGetFragment;
 import ntk.android.getit.fragment.SetFileFragment;
 import ntk.android.getit.fragment.SetLinkFragment;
 import ntk.android.getit.fragment.SetMemoFragment;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
+import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetResponce;
 
 public class MainHelper {
     View v;
@@ -83,16 +84,20 @@ public class MainHelper {
         ft.commit();
     }
 
-    public void showResultFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
+    public void showResultGetFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
         FragmentTransaction ft = ac.getSupportFragmentManager().beginTransaction();
-        ResultFragment frag= ResultFragment.newInstance(new Gson().toJson(linkResponse));
+        ResultGetFragment frag= ResultGetFragment.newInstance(new Gson().toJson(linkResponse));
         ft.replace(R.id.framelayout, frag);
-// or ft.add(R.id.your_placeholder, new FooFragment());
-// Complete the changes added above
         ft.addToBackStack(null);
         ft.commit();
     }
-
+    public void showResultSetFragment(LinkManagementTargetActShortLinkSetResponce linkResponse) {
+        FragmentTransaction ft = ac.getSupportFragmentManager().beginTransaction();
+        ResultSetFragment frag= ResultSetFragment.newInstance(new Gson().toJson(linkResponse));
+        ft.replace(R.id.framelayout, frag);
+        ft.addToBackStack(null);
+        ft.commit();
+    }
     private DoubleLiftLayout findLiftView(int k) {
         if (k == 0)
             return v.findViewById(R.id.lift1);
@@ -104,4 +109,6 @@ public class MainHelper {
             return v.findViewById(R.id.lift4);
         return null;
     }
+
+
 }

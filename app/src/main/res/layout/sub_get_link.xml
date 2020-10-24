@@ -22,16 +22,10 @@
         android:maxLength="9"
         android:textColor="#fff" />
 
-    <ImageView
-        android:id="@+id/captchaImg"
-        android:layout_width="200dp"
-        android:layout_height="100dp" />
-
-    <EditText
-        android:id="@+id/captchaEt"
+    <include
+        layout="@layout/sub_captcha"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="#fff" />
+        android:layout_height="wrap_content" />
 
     <Button
         android:id="@+id/generateBtn"
