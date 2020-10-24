@@ -20,6 +20,6 @@ public class MainActivity extends BaseActivity {
     }
 
     public void showResultFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
-        //todo show fragmnet
+        helper.showResultFragment(linkResponse);
     }
 }

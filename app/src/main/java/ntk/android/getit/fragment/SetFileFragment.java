@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import ntk.android.getit.R;
+import ntk.base.api.core.model.CaptchaResponce;
 
 public class SetFileFragment extends BaseFragment{
     @Nullable
@@ -18,4 +19,8 @@ public class SetFileFragment extends BaseFragment{
 
     }
 
+    @Override
+    public void onCaptchaReady(CaptchaResponce responce) {
+
+    }
 }

@@ -1,5 +1,6 @@
 package ntk.android.getit;
 
+import android.app.Dialog;
 import android.content.Context;
 
 import androidx.multidex.MultiDex;
@@ -21,15 +22,18 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
+import ntk.android.getit.dailog.LoadDialog;
 import ntk.android.getit.utill.FontManager;
+import ntk.base.api.core.entity.CaptchaModel;
 import ntk.base.api.core.interfase.ICoreGet;
 import ntk.base.api.core.model.CaptchaResponce;
 import ntk.base.api.utill.RetrofitManager;
 
 public class TicketingApp extends MultiDexApplication {
-    private CaptchaResponce responce;
+    private CaptchaModel captchaModel = null;
     public static boolean Inbox = false;
     private static TicketingApp ourInstance;
+    boolean dialogShowed;
 
     public static TicketingApp getInstance() {
         return ourInstance;
@@ -66,10 +70,8 @@ public class TicketingApp extends MultiDexApplication {
 //        DateTime( captchaResponce.Item.Expire)
     }
 
-    public void setCaptcha(CaptchaResponce captcha) {
-    }
-
-    public void getCaptcha() {
+    public void getCaptchaApi() {
+//        dialogShowed = new LoadDialog().showDialog(getApplicationContext());
         //get captcha
         RetrofitManager retro = new RetrofitManager(this);
         ICoreGet iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(this).GetApiBaseUrl()).create(ICoreGet.class);
@@ -85,12 +87,19 @@ public class TicketingApp extends MultiDexApplication {
 
                     @Override
                     public void onNext(@NonNull CaptchaResponce captchaResponce) {
-                        setCaptcha(captchaResponce);
+
+                        if (captchaResponce.IsSuccess)
+                            captchaModel = captchaResponce.Item;
+                        else
+                            Toasty.warning(ourInstance.getApplicationContext(), "خطا در دریافت کپچا", Toasty.LENGTH_LONG, true).show();
+
+                        dialogShowed = false;
 
                     }
 
                     @Override
                     public void onError(@NonNull Throwable e) {
+                        dialogShowed = false;
                         Toasty.warning(ourInstance.getApplicationContext(), "خطای سامانه", Toasty.LENGTH_LONG, true).show();
                     }
 
@@ -101,7 +110,15 @@ public class TicketingApp extends MultiDexApplication {
                 });
     }
 
-    public CaptchaResponce getResponce() {
-        return responce;
+    public CaptchaModel getLastCaptcha() {
+        if (captchaModel == null)
+            getCaptchaApi();
+        else
+            return captchaModel;
+        return null;
+    }
+
+    public CaptchaModel getCaptchaModel() {
+        return captchaModel;
     }
 }

@@ -31,14 +31,15 @@ public class ConfigRestHeader {
         headers.put("PackageName", BuildConfig.APPLICATION_ID);
         headers.put("AppBuildVer", String.valueOf(BuildConfig.VERSION_CODE));
         headers.put("AppSourceVer", BuildConfig.VERSION_NAME);
-        String NotId = FirebaseInstanceId.getInstance().getToken();
+        //todo check
+//        String NotId = FirebaseInstanceId.getInstance().getToken();
 
 
 
-        if (NotId != null && !NotId.isEmpty() && !NotId.toLowerCase().equals("null")) {
-            headers.put("NotificationId", NotId);
-            FirebaseMessaging.getInstance().subscribeToTopic(BuildConfig.APPLICATION_ID);
-        }
+//        if (NotId != null && !NotId.isEmpty() && !NotId.toLowerCase().equals("null")) {
+//            headers.put("NotificationId", NotId);
+//            FirebaseMessaging.getInstance().subscribeToTopic(BuildConfig.APPLICATION_ID);
+//        }
         return headers;
     }
 }

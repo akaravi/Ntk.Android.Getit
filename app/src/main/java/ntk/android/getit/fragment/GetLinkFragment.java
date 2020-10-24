@@ -5,10 +5,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Map;
 
@@ -23,6 +25,8 @@ import ntk.android.getit.TicketingApp;
 import ntk.android.getit.activity.MainActivity;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
+import ntk.base.api.core.entity.CaptchaModel;
+import ntk.base.api.core.model.CaptchaResponce;
 import ntk.base.api.linkManagemen.interfase.ILinkManagement;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetRequest;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
@@ -40,8 +44,13 @@ public class GetLinkFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViewById(R.id.captchaImg).setOnClickListener(v -> TicketingApp.getInstance().getCaptcha());
+        findViewById(R.id.captchaImg).setOnClickListener(v -> TicketingApp.getInstance().getCaptchaApi());
         findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
+        CaptchaModel lastCaptcha = TicketingApp.getInstance().getLastCaptcha();
+        if (lastCaptcha != null) {
+            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
+
+        }
     }
 
     private void callApi() {
@@ -54,7 +63,7 @@ public class GetLinkFragment extends BaseFragment {
         LinkManagementTargetActShortLinkGetRequest req = new LinkManagementTargetActShortLinkGetRequest();
         req.CaptchaText = captchaText;
         req.Key = keyText;
-        req.CaptchaKey = TicketingApp.getInstance().getResponce().Item.Key;
+        req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
         callapi(req);
     }
 
@@ -74,7 +83,10 @@ public class GetLinkFragment extends BaseFragment {
 
                     @Override
                     public void onNext(@io.reactivex.annotations.NonNull LinkManagementTargetActShortLinkGetResponce linkResponse) {
-                        ((MainActivity) getActivity()).showResultFragment(linkResponse);
+                        if (linkResponse.IsSuccess)
+                            ((MainActivity) getActivity()).showResultFragment(linkResponse);
+                        else
+                            Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
                     }
 
                     @Override
@@ -90,4 +102,12 @@ public class GetLinkFragment extends BaseFragment {
     }
 
 
+    @Override
+    public void onCaptchaReady(CaptchaResponce responce) {
+        CaptchaModel lastCaptcha = TicketingApp.getInstance().getLastCaptcha();
+        if (lastCaptcha != null) {
+            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
+
+        }
+    }
 }

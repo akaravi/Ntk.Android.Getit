@@ -10,6 +10,7 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 import ntk.android.getit.R;
+import ntk.base.api.core.model.CaptchaResponce;
 
 public class SetLinkFragment extends BaseFragment{
     @Nullable
@@ -19,4 +20,8 @@ public class SetLinkFragment extends BaseFragment{
 
     }
 
+    @Override
+    public void onCaptchaReady(CaptchaResponce responce) {
+
+    }
 }

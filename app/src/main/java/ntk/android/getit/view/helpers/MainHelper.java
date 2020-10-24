@@ -5,6 +5,7 @@ import android.view.View;
 
 import androidx.fragment.app.FragmentTransaction;
 
+import com.google.gson.Gson;
 import com.skydoves.doublelift.DoubleLiftLayout;
 import com.skydoves.doublelift.OnExpandListener;
 
@@ -12,9 +13,11 @@ import ntk.android.getit.R;
 import ntk.android.getit.activity.MainActivity;
 import ntk.android.getit.fragment.BaseFragment;
 import ntk.android.getit.fragment.GetLinkFragment;
+import ntk.android.getit.fragment.ResultFragment;
 import ntk.android.getit.fragment.SetFileFragment;
 import ntk.android.getit.fragment.SetLinkFragment;
 import ntk.android.getit.fragment.SetMemoFragment;
+import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
 
 public class MainHelper {
     View v;
@@ -73,6 +76,16 @@ public class MainHelper {
                 frag = new SetMemoFragment();
                 break;
         }
+        ft.replace(R.id.framelayout, frag);
+// or ft.add(R.id.your_placeholder, new FooFragment());
+// Complete the changes added above
+        ft.addToBackStack(null);
+        ft.commit();
+    }
+
+    public void showResultFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
+        FragmentTransaction ft = ac.getSupportFragmentManager().beginTransaction();
+        ResultFragment frag= ResultFragment.newInstance(new Gson().toJson(linkResponse));
         ft.replace(R.id.framelayout, frag);
 // or ft.add(R.id.your_placeholder, new FooFragment());
 // Complete the changes added above
