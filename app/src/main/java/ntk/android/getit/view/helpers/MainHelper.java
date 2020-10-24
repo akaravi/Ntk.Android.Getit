@@ -14,6 +14,7 @@ import ntk.android.getit.activity.MainActivity;
 import ntk.android.getit.fragment.BaseFragment;
 import ntk.android.getit.fragment.GetLinkFragment;
 import ntk.android.getit.fragment.ResultGetFragment;
+import ntk.android.getit.fragment.ResultSetFragment;
 import ntk.android.getit.fragment.SetFileFragment;
 import ntk.android.getit.fragment.SetLinkFragment;
 import ntk.android.getit.fragment.SetMemoFragment;

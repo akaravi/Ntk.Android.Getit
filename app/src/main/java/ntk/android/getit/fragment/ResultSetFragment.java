@@ -10,10 +10,9 @@ import androidx.fragment.app.Fragment;
 import com.google.gson.Gson;
 
 import ntk.android.getit.R;
-import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetResponce;
 
-class ResultSetFragment extends Fragment {
+public class ResultSetFragment extends Fragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -31,8 +30,8 @@ class ResultSetFragment extends Fragment {
      * @return A new instance of fragment Result.
      */
     // TODO: Rename and change types and number of parameters
-    public static ResultGetFragment newInstance(String param1) {
-        ResultGetFragment fragment = new ResultGetFragment();
+    public static ResultSetFragment newInstance(String param1) {
+        ResultSetFragment fragment = new ResultSetFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
 
@@ -53,6 +52,6 @@ class ResultSetFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_result, container, false);
-   //todo show
+        //todo show
     }
 }
