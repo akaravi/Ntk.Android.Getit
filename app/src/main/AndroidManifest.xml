@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="ntk.android.getit">
 
+    <uses-sdk tools:overrideLibrary="com.fxn.bubbletabbar" />
     <application
+        android:name=".TicketingApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -10,7 +13,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.NtkAndroidGetit">
         <activity
-            android:name=".MainActivity"
+            android:name=".activity.MainActivity"
             android:label="@string/app_name"
             android:theme="@style/Theme.NtkAndroidGetit.NoActionBar">
             <intent-filter>
@@ -19,6 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".activity.MainAcstivity"
+            android:theme="@style/Theme.NtkAndroidGetit.NoActionBar" />
+
     </application>
 
 </manifest>

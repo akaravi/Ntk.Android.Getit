@@ -1,4 +1,4 @@
-package ntk.android.getit;
+package ntk.android.getit.activity;
 
 import android.os.Bundle;
 
@@ -13,12 +13,14 @@ import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
-public class MainActivity extends AppCompatActivity {
+import ntk.android.getit.R;
+
+public class MainAcstivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_main2);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 

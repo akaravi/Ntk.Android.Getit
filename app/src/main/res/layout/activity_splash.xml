@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#673AB7">
+
+    <View
+        android:id="@+id/center"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_centerInParent="true" />
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splashLottie"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="-40dp"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/uploadsfiles" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/center"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="100dp"
+        android:gravity="center"
+        android:shadowColor="@color/purple_700"
+        android:shadowDx="24"
+        android:shadowRadius="22"
+        android:text="GetIt"
+        android:textColor="#FF2D39"
+        android:textSize="44sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/corpTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/versioTv"
+        android:layout_below="@+id/versioTv"
+        android:gravity="center"
+        android:text="NTK"
+        android:textColor="#fff"
+        android:textSize="11sp" />
+
+    <TextView
+        android:id="@+id/versioTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:gravity="center"
+        android:text="Version"
+        android:textColor="#fff"
+        android:textSize="11sp" />
+</RelativeLayout>

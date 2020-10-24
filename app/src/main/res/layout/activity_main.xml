@@ -1,33 +1,120 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/mainLinear"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    android:background="#333"
+    android:orientation="vertical">
 
-    <com.google.android.material.appbar.AppBarLayout
+    <com.skydoves.doublelift.DoubleLiftLayout
+        android:id="@+id/lift1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/Theme.NtkAndroidGetit.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:background="#2196F3"
+        app:doubleLift_animation="bounce"
+        app:doubleLift_autoExpand="false"
+        app:doubleLift_cornerRadius="4dp"
+        app:doubleLift_foldedHeight="10dp"
+        app:doubleLift_foldedWidth="50dp"
+        app:doubleLift_horizontalDuration="400"
+        app:doubleLift_startOrientation="horizontal"
+        app:doubleLift_verticalDuration="300">
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
+        <include
+            layout="@layout/sub_get_link"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/Theme.NtkAndroidGetit.PopupOverlay" />
+            android:layout_height="match_parent" />
 
-    </com.google.android.material.appbar.AppBarLayout>
+    </com.skydoves.doublelift.DoubleLiftLayout>
 
-    <include layout="@layout/content_main" />
+    <com.skydoves.doublelift.DoubleLiftLayout
+        android:id="@+id/lift2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#E91E63"
+        app:doubleLift_animation="bounce"
+        app:doubleLift_autoExpand="false"
+        app:doubleLift_cornerRadius="4dp"
+        app:doubleLift_foldedHeight="10dp"
+        app:doubleLift_foldedWidth="50dp"
+        app:doubleLift_horizontalDuration="400"
+        app:doubleLift_startOrientation="horizontal"
+        app:doubleLift_verticalDuration="300">
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
+        <include
+            layout="@layout/sub_set_link"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.skydoves.doublelift.DoubleLiftLayout>
+
+    <com.skydoves.doublelift.DoubleLiftLayout
+        android:id="@+id/lift3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#3F51B5"
+        app:doubleLift_animation="bounce"
+        app:doubleLift_autoExpand="false"
+        app:doubleLift_cornerRadius="4dp"
+        app:doubleLift_foldedHeight="10dp"
+        app:doubleLift_foldedWidth="50dp"
+        app:doubleLift_horizontalDuration="400"
+        app:doubleLift_startOrientation="horizontal"
+        app:doubleLift_verticalDuration="300">
+
+        <include
+            layout="@layout/sub_set_file"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.skydoves.doublelift.DoubleLiftLayout>
+
+    <com.skydoves.doublelift.DoubleLiftLayout
+        android:id="@+id/lift4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#03A9F4"
+        app:doubleLift_animation="bounce"
+        app:doubleLift_autoExpand="false"
+        app:doubleLift_cornerRadius="4dp"
+        app:doubleLift_foldedHeight="10dp"
+        app:doubleLift_foldedWidth="50dp"
+        app:doubleLift_horizontalDuration="400"
+        app:doubleLift_startOrientation="horizontal"
+        app:doubleLift_verticalDuration="300">
+
+        <include
+            layout="@layout/sub_set_memo"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
+    </com.skydoves.doublelift.DoubleLiftLayout>
+
+    <Button
+        android:id="@+id/bt1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        android:text="lift1" />
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+    <Button
+        android:id="@+id/bt2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt1"
+        android:text="lift1" />
+
+    <Button
+        android:id="@+id/bt3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt2"
+        android:text="lift1" />
+
+    <Button
+        android:id="@+id/bt4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bt3"
+        android:text="lift1" />
+</RelativeLayout>
