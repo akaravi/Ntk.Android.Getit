@@ -46,9 +46,9 @@ public class SetLinkFragment extends BaseFragment{
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViewById(R.id.captchaImg).setOnClickListener(v -> TicketingApp.getInstance().getCaptchaApi());
+        findViewById(R.id.captchaImg).setOnClickListener(v ->   getBaseActivity().getLastCaptcha());
         findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
-        CaptchaModel lastCaptcha = TicketingApp.getInstance().getLastCaptcha();
+        CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha();
         if (lastCaptcha != null) {
             ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
 
