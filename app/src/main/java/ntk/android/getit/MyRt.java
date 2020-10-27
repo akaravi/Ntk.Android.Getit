@@ -122,36 +122,6 @@ public class MyRt {
         return mRetrofit;
     }
 
-    public Observable<String> FileUpload(String Url, String fileUri, Map<String, String> headers) {
-        File file = new File(fileUri);
-        String MULTIPART_FORM_DATA = "multipart/form-data";
-        // create RequestBody instance from file
-        RequestBody requestFile = RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), file);
-
-        // MultipartBody.Part is used to send also the actual file name
-        MultipartBody.Part body = MultipartBody.Part.createFormData("file", file.getName(), requestFile);
-
-
-        FileUploadModel model = new FileUploadModel();
-        model.FileName = file.getName();
-        model.Identifier = "abcd";
-        model.ChunkNumber = 1;
-        model.TotalChunks = 1;
-        model.TotalSize = file.length();
-        model.RelativePath = fileUri;
-
-        HashMap<String, RequestBody> map = new HashMap<>();
-        map.put("FileName", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.FileName));
-        map.put("Identifier", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.Identifier));
-        map.put("TotalChunks", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.TotalChunks + ""));
-        map.put("ChunkNumber", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.ChunkNumber + ""));
-        map.put("TotalSize", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.TotalSize + ""));
-        map.put("RelativePath", RequestBody.create(MediaType.parse(MULTIPART_FORM_DATA), model.RelativePath + ""));
-
-
-        IFile upload = getRetrofitUnCached(Url).create(IFile.class);
-        return upload.uploadFileWithPartMap(headers, map, body);
-    }
 
     private Cache provideCache() {
         if (mCache == null) {

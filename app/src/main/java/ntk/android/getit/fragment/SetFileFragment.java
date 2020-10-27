@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,7 +32,6 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import ntk.android.getit.MyFileImp;
 import ntk.android.getit.MyRt;
 import ntk.android.getit.R;
 import ntk.android.getit.TicketingApp;
@@ -44,7 +42,9 @@ import ntk.android.getit.utill.AppUtill;
 import ntk.android.getit.utill.FileManaging;
 import ntk.base.api.core.entity.CaptchaModel;
 import ntk.base.api.core.model.CaptchaResponce;
+import ntk.base.api.file.interfase.IFile;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetRequest;
+import ntk.base.api.utill.RetrofitManager;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
@@ -127,10 +127,10 @@ public class SetFileFragment extends BaseFragment {
         if (AppUtill.isNetworkAvailable(getContext())) {
             File file = new File(FileManaging.getPath(getContext(), fileName));
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            MyRt retro = new MyRt(getContext());
+            RetrofitManager retro = new RetrofitManager(getContext());
             Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
-            MyFileImp iFile = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(MyFileImp.class);
-            Observable<ResponseBody> Call = iFile.IdnuploadFileWithPartMap(headers, new HashMap<>(), MultipartBody.Part.createFormData("File", file.getName(), requestFile));
+            IFile iFile = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(IFile.class);
+            Observable<ResponseBody> Call = iFile.uploadFileWithPartMap(headers, new HashMap<>(), MultipartBody.Part.createFormData("File", file.getName(), requestFile));
             Call.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Observer<ResponseBody>() {

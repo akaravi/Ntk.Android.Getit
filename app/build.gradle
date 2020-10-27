@@ -61,7 +61,7 @@ dependencies {
     //navigaiton bottom
     implementation "com.github.skydoves:doublelift:1.0.3"
     //for base
-    implementation 'com.github.akaravi:ntk.android.base:1.0.54'
+    implementation 'com.github.akaravi:ntk.android.base:1.0.55'
     //for retrofit
     implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
