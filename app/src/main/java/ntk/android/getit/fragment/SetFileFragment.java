@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -38,7 +39,6 @@ import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
 import ntk.android.getit.model.FileUploadModel;
 import ntk.android.getit.utill.AppUtill;
-import ntk.android.getit.utill.CaptchaReadyListener;
 import ntk.android.getit.utill.FileManaging;
 import ntk.base.api.core.entity.CaptchaModel;
 import ntk.base.api.file.interfase.IFile;
@@ -93,11 +93,11 @@ public class SetFileFragment extends BaseFragment {
         }
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+
     private void callApi() {
         String captchaText = ((EditText) findViewById(R.id.captchaEt)).getText().toString();
         if (fileName == null)
-            Toasty.warning(getContext(), "کلید وارد نشده است", Toasty.LENGTH_LONG, true).show();
+            Toasty.warning(getContext(), "فایل اپلود انتخاب نشده است", Toasty.LENGTH_LONG, true).show();
         else if (captchaText.trim().equals(""))
             Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
         else {
@@ -113,9 +113,6 @@ public class SetFileFragment extends BaseFragment {
         }
     }
 
-    private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
-        //same as
-    }
 
 
     private void UploadFileToServer() {
@@ -126,6 +123,7 @@ public class SetFileFragment extends BaseFragment {
             Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
             IFile iFile = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(IFile.class);
             Observable<ResponseBody> Call = iFile.uploadFileWithPartMap(headers, new HashMap<>(), MultipartBody.Part.createFormData("File", file.getName(), requestFile));
+            getBaseActivity().showLoading();
             Call.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
                     .subscribe(new Observer<ResponseBody>() {
@@ -135,6 +133,8 @@ public class SetFileFragment extends BaseFragment {
 
                         @Override
                         public void onNext(ResponseBody model) {
+                            getBaseActivity().hideLoading();
+                            ((TextView) findViewById(R.id.status)).setText("");
                             try {
                                 uploadedString = new Gson().fromJson(model.string(), FileUploadModel.class).FileKey;
                             } catch (IOException e) {
@@ -144,7 +144,8 @@ public class SetFileFragment extends BaseFragment {
 
                         @Override
                         public void onError(Throwable e) {
-
+                            getBaseActivity().hideLoading();
+                            getBaseActivity().getCaptchaApi(SetFileFragment.this);
                             Toasty.warning(getContext(), "خطای در بارگذاری فایل", Toasty.LENGTH_LONG, true).show();
                         }
 

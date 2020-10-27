@@ -70,38 +70,5 @@ public class SetLinkFragment extends BaseFragment{
         callShortLinkSetApi(req);
     }}
 
-    private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
-        //get captcha
-        RetrofitManager retro = new RetrofitManager(getContext());
-        ILinkManagement iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(ILinkManagement.class);
-        Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
-        Observable<LinkManagementTargetActShortLinkSetResponce> Call = iTicket.LinkManagementTargetActShortLinkSet(headers, req);
-        Call.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<LinkManagementTargetActShortLinkSetResponce>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
-
-                    }
-
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull LinkManagementTargetActShortLinkSetResponce linkResponse) {
-                        if (linkResponse.IsSuccess)
-                            ((MainActivity) getActivity()).showResultSetFragment(linkResponse);
-                        else
-                            Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
-                    }
-
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                        Toasty.warning(getContext(), "خطای سامانه", Toasty.LENGTH_LONG, true).show();
-                    }
-
-                    @Override
-                    public void onComplete() {
-
-                    }
-                });
-    }
 
 }

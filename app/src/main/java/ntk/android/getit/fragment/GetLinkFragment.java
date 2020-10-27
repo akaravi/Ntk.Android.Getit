@@ -13,7 +13,6 @@ import androidx.annotation.Nullable;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.util.Map;
-import java.util.function.Function;
 
 import es.dmoral.toasty.Toasty;
 import io.reactivex.Observable;
@@ -26,8 +25,8 @@ import ntk.android.getit.TicketingApp;
 import ntk.android.getit.activity.MainActivity;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
+import ntk.android.getit.utill.AppUtill;
 import ntk.base.api.core.entity.CaptchaModel;
-import ntk.base.api.core.model.CaptchaResponce;
 import ntk.base.api.linkManagemen.interfase.ILinkManagement;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetRequest;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkGetResponce;
@@ -45,7 +44,7 @@ public class GetLinkFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViewById(R.id.captchaImg).setOnClickListener(v ->  getBaseActivity().getCaptchaApi(this));
+        findViewById(R.id.captchaImg).setOnClickListener(v -> getBaseActivity().getCaptchaApi(this));
         findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
         CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha(this);
         if (lastCaptcha != null) {
@@ -73,38 +72,47 @@ public class GetLinkFragment extends BaseFragment {
     }
 
     protected void callShortLinkGetApi(LinkManagementTargetActShortLinkGetRequest req) {
-        //get captcha
-        RetrofitManager retro = new RetrofitManager(getContext());
-        ILinkManagement iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(ILinkManagement.class);
-        Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
-        Observable<LinkManagementTargetActShortLinkGetResponce> Call = iTicket.LinkManagementTargetActShortLinkGet(headers, req);
-        Call.observeOn(AndroidSchedulers.mainThread())
-                .subscribeOn(Schedulers.io())
-                .subscribe(new Observer<LinkManagementTargetActShortLinkGetResponce>() {
-                    @Override
-                    public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
+        if (AppUtill.isNetworkAvailable(getContext())) {
+            //get captcha
+            RetrofitManager retro = new RetrofitManager(getContext());
+            ILinkManagement iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(ILinkManagement.class);
+            Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
+            Observable<LinkManagementTargetActShortLinkGetResponce> Call = iTicket.LinkManagementTargetActShortLinkGet(headers, req);
+            getBaseActivity().showLoading();
+            Call.observeOn(AndroidSchedulers.mainThread())
+                    .subscribeOn(Schedulers.io())
+                    .subscribe(new Observer<LinkManagementTargetActShortLinkGetResponce>() {
+                        @Override
+                        public void onSubscribe(@io.reactivex.annotations.NonNull Disposable d) {
 
-                    }
+                        }
 
-                    @Override
-                    public void onNext(@io.reactivex.annotations.NonNull LinkManagementTargetActShortLinkGetResponce linkResponse) {
-                        if (linkResponse.IsSuccess)
-                            ((MainActivity) getActivity()).showResultGetFragment(linkResponse);
-                        else
-                            Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
-                    }
+                        @Override
+                        public void onNext(@io.reactivex.annotations.NonNull LinkManagementTargetActShortLinkGetResponce linkResponse) {
+                            getBaseActivity().hideLoading();
+                            if (linkResponse.IsSuccess)
+                                ((MainActivity) getActivity()).showResultGetFragment(linkResponse);
+                            else {
+                                Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
+                                getBaseActivity().getCaptchaApi(GetLinkFragment.this);
+                            }  }
 
-                    @Override
-                    public void onError(@io.reactivex.annotations.NonNull Throwable e) {
-                        Toasty.warning(getContext(), "خطای سامانه", Toasty.LENGTH_LONG, true).show();
-                    }
+                        @Override
+                        public void onError(@io.reactivex.annotations.NonNull Throwable e) {
+                            getBaseActivity().hideLoading();
+                            getBaseActivity().getCaptchaApi(GetLinkFragment.this);
+                            Toasty.warning(getContext(), "خطای سامانه", Toasty.LENGTH_LONG, true).show();
+                        }
 
-                    @Override
-                    public void onComplete() {
+                        @Override
+                        public void onComplete() {
 
-                    }
-                });
+                        }
+                    });
+        } else {
+
+            Toasty.warning(getContext(), "عدم دسترسی به اینترنت", Toasty.LENGTH_LONG, true).show();
+        }
     }
-
 
 }

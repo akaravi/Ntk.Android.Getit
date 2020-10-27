@@ -77,7 +77,7 @@ public class BaseActivity extends AppCompatActivity {
                 });
     }
 
-    private void showLoading() {
+    public void showLoading() {
         dialog = new Dialog(this);
         dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         dialog.setContentView(R.layout.dialog_load);
@@ -85,7 +85,7 @@ public class BaseActivity extends AppCompatActivity {
         dialog.show();
     }
 
-    private void hideLoading() {
+    public void hideLoading() {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
 

@@ -55,8 +55,6 @@ public class SetMemoFragment extends BaseFragment {
         }
     }
 
-    private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
-        //same as
-    }
+
 
 }
