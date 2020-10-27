@@ -62,12 +62,13 @@ public class SetLinkFragment extends BaseFragment{
             Toasty.warning(getContext(), "آدرس وارد نشده است", Toasty.LENGTH_LONG, true).show();
         else if (captchaText.trim().equals(""))
             Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
+        else{
         LinkManagementTargetActShortLinkSetRequest req = new LinkManagementTargetActShortLinkSetRequest();
         req.CaptchaText = captchaText;
         req.UrlAddress = url;
         req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
         callShortLinkSetApi(req);
-    }
+    }}
 
     private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
         //get captcha

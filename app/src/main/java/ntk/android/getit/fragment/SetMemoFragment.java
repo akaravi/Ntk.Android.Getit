@@ -46,11 +46,13 @@ public class SetMemoFragment extends BaseFragment {
             Toasty.warning(getContext(), "متن وارد نشده است", Toasty.LENGTH_LONG, true).show();
         else if (captchaText.trim().equals(""))
             Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
-        LinkManagementTargetActShortLinkSetRequest req = new LinkManagementTargetActShortLinkSetRequest();
-        req.CaptchaText = captchaText;
-        req.Description = memoTxt;
-        req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
-        callShortLinkSetApi(req);
+        else {
+            LinkManagementTargetActShortLinkSetRequest req = new LinkManagementTargetActShortLinkSetRequest();
+            req.CaptchaText = captchaText;
+            req.Description = memoTxt;
+            req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
+            callShortLinkSetApi(req);
+        }
     }
 
     private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {

@@ -1,21 +1,29 @@
 package ntk.android.getit.fragment;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
+import android.widget.ImageView;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
+import androidx.core.app.ActivityCompat;
 
-import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,19 +33,28 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+import ntk.android.getit.MyFileImp;
+import ntk.android.getit.MyRt;
 import ntk.android.getit.R;
+import ntk.android.getit.TicketingApp;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
+import ntk.android.getit.model.FileUploadModel;
 import ntk.android.getit.utill.AppUtill;
+import ntk.android.getit.utill.FileManaging;
+import ntk.base.api.core.entity.CaptchaModel;
 import ntk.base.api.core.model.CaptchaResponce;
-import ntk.base.api.file.interfase.IFile;
-import ntk.base.api.utill.RetrofitManager;
+import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetRequest;
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
 
-public class SetFileFragment extends BaseFragment{
+public class SetFileFragment extends BaseFragment {
+    Uri fileName;
+    String uploadedString = "";
     private static final int READ_REQUEST_CODE = 150;
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -45,43 +62,95 @@ public class SetFileFragment extends BaseFragment{
 
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        findViewById(R.id.captchaImg).setOnClickListener(v -> TicketingApp.getInstance().getCaptchaApi());
+        findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
+        CaptchaModel lastCaptcha = TicketingApp.getInstance().getLastCaptcha();
+        findViewById(R.id.uploadBtn).setOnClickListener(v -> {
+            if (CheckPermission()) {
+                Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+                intent.addCategory(Intent.CATEGORY_OPENABLE);
+                intent.setType("*/*");
+                startActivityForResult(intent, READ_REQUEST_CODE);
+            } else {
+                ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 220);
+            }
+        });
+        if (lastCaptcha != null) {
+            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
+
+        }
+    }
+
+    private boolean CheckPermission() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return getContext().checkSelfPermission(Manifest.permission.READ_EXTERNAL_STORAGE) == PackageManager.PERMISSION_GRANTED;
+        } else {
+            return true;
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+    private void callApi() {
+        String captchaText = ((EditText) findViewById(R.id.captchaEt)).getText().toString();
+        if (fileName == null)
+            Toasty.warning(getContext(), "کلید وارد نشده است", Toasty.LENGTH_LONG, true).show();
+        else if (captchaText.trim().equals(""))
+            Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
+        else {
+            if (uploadedString.equals(""))
+                UploadFileToServer();
+            else {
+                LinkManagementTargetActShortLinkSetRequest req = new LinkManagementTargetActShortLinkSetRequest();
+                req.CaptchaText = captchaText;
+                req.UploadFileKey = uploadedString;
+                req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
+                callShortLinkSetApi(req);
+            }
+        }
+    }
+
+    private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
+        //same as
+    }
+
     @Override
     public void onCaptchaReady(CaptchaResponce responce) {
 
     }
-    private void UploadFileToServer(String url) {
+
+
+    private void UploadFileToServer() {
         if (AppUtill.isNetworkAvailable(getContext())) {
-            File file = new File(String.valueOf(Uri.parse(url)));
+            File file = new File(FileManaging.getPath(getContext(), fileName));
             RequestBody requestFile = RequestBody.create(MediaType.parse("multipart/form-data"), file);
-            RetrofitManager retro = new RetrofitManager(getContext());
+            MyRt retro = new MyRt(getContext());
             Map<String, String> headers = new ConfigRestHeader().GetHeaders(getContext());
-            IFile iFile = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(IFile.class);
-            Observable<String> Call = iFile.uploadFileWithPartMap(headers, new HashMap<>(), MultipartBody.Part.createFormData("File", file.getName(), requestFile));
+            MyFileImp iFile = retro.getRetrofitUnCached(new ConfigStaticValue(getContext()).GetApiBaseUrl()).create(MyFileImp.class);
+            Observable<ResponseBody> Call = iFile.IdnuploadFileWithPartMap(headers, new HashMap<>(), MultipartBody.Part.createFormData("File", file.getName(), requestFile));
             Call.observeOn(AndroidSchedulers.mainThread())
                     .subscribeOn(Schedulers.io())
-                    .subscribe(new Observer<String>() {
+                    .subscribe(new Observer<ResponseBody>() {
                         @Override
                         public void onSubscribe(Disposable d) {
                         }
 
                         @Override
-                        public void onNext(String model) {
-//                            adapter.notifyDataSetChanged();
-//                            fileId.add(model);
-
+                        public void onNext(ResponseBody model) {
+                            try {
+                                uploadedString = new Gson().fromJson(model.string(), FileUploadModel.class).FileKey;
+                            } catch (IOException e) {
+                                Toasty.warning(getContext(), "خطای خواندن اطلاعات", Toasty.LENGTH_LONG, true).show();
+                            }
                         }
 
                         @Override
                         public void onError(Throwable e) {
 
-//                            attaches.remove(attaches.size() - 1);
-//                            adapter.notifyDataSetChanged();
-//                            Snackbar.make(layout, "خطای سامانه مجددا تلاش کنید", Snackbar.LENGTH_INDEFINITE).setAction("تلاش مجددا", new View.OnClickListener() {
-//                                @Override
-//                                public void onClick(View v) {
-//                                    init();
-//                                }
-//                            }).show();
+                            Toasty.warning(getContext(), "خطای در بارگذاری فایل", Toasty.LENGTH_LONG, true).show();
                         }
 
                         @Override
@@ -94,6 +163,9 @@ public class SetFileFragment extends BaseFragment{
             Toasty.warning(getContext(), "عدم دسترسی به اینترنت", Toasty.LENGTH_LONG, true).show();
         }
     }
+
+
+
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent resultData) {
@@ -104,11 +176,11 @@ public class SetFileFragment extends BaseFragment{
                 uri = resultData.getData();
                 if (uri != null) {
 
-//                    attaches.add(getPath(NewTicketActivity.this, uri));
-//                    adapter.notifyDataSetChanged();
-//                    UploadFileToServer(getPath(NewTicketActivity.this, uri));
+                    fileName = uri;
                 }
             }
         }
     }
+
+
 }

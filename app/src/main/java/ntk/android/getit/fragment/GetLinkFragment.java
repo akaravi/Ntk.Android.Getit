@@ -60,11 +60,14 @@ public class GetLinkFragment extends BaseFragment {
             Toasty.warning(getContext(), "کلید وارد نشده است", Toasty.LENGTH_LONG, true).show();
         else if (captchaText.trim().equals(""))
             Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
-        LinkManagementTargetActShortLinkGetRequest req = new LinkManagementTargetActShortLinkGetRequest();
-        req.CaptchaText = captchaText;
-        req.Key = keyText;
-        req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
-        callShortLinkGetApi(req);
+        else {
+
+            LinkManagementTargetActShortLinkGetRequest req = new LinkManagementTargetActShortLinkGetRequest();
+            req.CaptchaText = captchaText;
+            req.Key = keyText;
+            req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
+            callShortLinkGetApi(req);
+        }
     }
 
     protected void callShortLinkGetApi(LinkManagementTargetActShortLinkGetRequest req) {

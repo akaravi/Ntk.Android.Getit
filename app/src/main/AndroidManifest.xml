@@ -8,10 +8,10 @@
     <uses-permission android:name="android.permission.RECEIVE_SMS" />
     <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
     <uses-permission android:name="android.permission.VIBRATE" />
 
-    <application
+    <application android:requestLegacyExternalStorage="true"
         android:name=".TicketingApp"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -36,7 +36,15 @@
             android:name=".activity.LoadingActivity"
             android:excludeFromRecents="true"
             android:theme="@style/Theme.NtkAndroidGetit.NoActionBar" />
-
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="ntk.android.getit"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
     </application>
 
 </manifest>
