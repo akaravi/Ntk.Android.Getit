@@ -19,6 +19,7 @@ import ntk.android.getit.R;
 import ntk.android.getit.TicketingApp;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
+import ntk.android.getit.utill.CaptchaReadyListener;
 import ntk.base.api.core.entity.CaptchaModel;
 import ntk.base.api.core.interfase.ICoreGet;
 import ntk.base.api.core.model.CaptchaResponce;
@@ -34,8 +35,8 @@ public class BaseActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, resultData);
     }
 
-    private void getCaptchaApi() {
-//        dialogShowed = new LoadDialog().showDialog(getApplicationContext());
+    public void getCaptchaApi(CaptchaReadyListener f) {
+
         //get captcha
         RetrofitManager retro = new RetrofitManager(this);
         ICoreGet iTicket = retro.getRetrofitUnCached(new ConfigStaticValue(this).GetApiBaseUrl()).create(ICoreGet.class);
@@ -53,9 +54,10 @@ public class BaseActivity extends AppCompatActivity {
                     @Override
                     public void onNext(@NonNull CaptchaResponce captchaResponce) {
                         hideLoading();
-                        if (captchaResponce.IsSuccess)
+                        if (captchaResponce.IsSuccess) {
                             ((TicketingApp) getApplicationContext()).setCaptchaModel(captchaResponce.Item);
-                        else
+                            f.onCaptchaReady();
+                        } else
                             Toasty.warning(BaseActivity.this, "خطا در دریافت کپچا", Toasty.LENGTH_LONG, true).show();
 
 
@@ -71,6 +73,7 @@ public class BaseActivity extends AppCompatActivity {
                     public void onComplete() {
 
                     }
+
                 });
     }
 
@@ -81,12 +84,14 @@ public class BaseActivity extends AppCompatActivity {
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
     }
+
     private void hideLoading() {
         if (dialog != null && dialog.isShowing())
             dialog.dismiss();
 
-        dialog=null;
+        dialog = null;
     }
+
     @Override
     protected void onDestroy() {
         if (dialog != null && dialog.isShowing())
@@ -94,10 +99,10 @@ public class BaseActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    public CaptchaModel getLastCaptcha() {
+    public CaptchaModel getLastCaptcha(CaptchaReadyListener f) {
         CaptchaModel captchaModel = ((TicketingApp) getApplicationContext()).getCaptchaModel();
         if (captchaModel == null)
-            getCaptchaApi();
+            getCaptchaApi(f);
         else
             return captchaModel;
         return null;

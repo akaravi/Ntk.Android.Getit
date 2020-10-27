@@ -45,9 +45,9 @@ public class GetLinkFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViewById(R.id.captchaImg).setOnClickListener(v ->  getBaseActivity().getLastCaptcha());
+        findViewById(R.id.captchaImg).setOnClickListener(v ->  getBaseActivity().getCaptchaApi(this));
         findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
-        CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha();
+        CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha(this);
         if (lastCaptcha != null) {
             ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
 
@@ -107,12 +107,4 @@ public class GetLinkFragment extends BaseFragment {
     }
 
 
-    @Override
-    public void onCaptchaReady(CaptchaResponce responce) {
-        CaptchaModel lastCaptcha = TicketingApp.getInstance().getCaptchaModel();
-        if (lastCaptcha != null) {
-            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
-
-        }
-    }
 }

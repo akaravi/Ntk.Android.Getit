@@ -32,16 +32,15 @@ import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import ntk.android.getit.MyRt;
 import ntk.android.getit.R;
 import ntk.android.getit.TicketingApp;
 import ntk.android.getit.config.ConfigRestHeader;
 import ntk.android.getit.config.ConfigStaticValue;
 import ntk.android.getit.model.FileUploadModel;
 import ntk.android.getit.utill.AppUtill;
+import ntk.android.getit.utill.CaptchaReadyListener;
 import ntk.android.getit.utill.FileManaging;
 import ntk.base.api.core.entity.CaptchaModel;
-import ntk.base.api.core.model.CaptchaResponce;
 import ntk.base.api.file.interfase.IFile;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetRequest;
 import ntk.base.api.utill.RetrofitManager;
@@ -66,9 +65,13 @@ public class SetFileFragment extends BaseFragment {
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        findViewById(R.id.captchaImg).setOnClickListener(v ->  getBaseActivity().getLastCaptcha());
+        findViewById(R.id.captchaImg).setOnClickListener(v -> getBaseActivity().getCaptchaApi(this));
         findViewById(R.id.generateBtn).setOnClickListener(v -> callApi());
-        CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha();
+        CaptchaModel lastCaptcha = getBaseActivity().getLastCaptcha(this);
+        if (lastCaptcha != null) {
+            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
+
+        }
         findViewById(R.id.uploadBtn).setOnClickListener(v -> {
             if (CheckPermission()) {
                 Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
@@ -79,10 +82,7 @@ public class SetFileFragment extends BaseFragment {
                 ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE}, 220);
             }
         });
-        if (lastCaptcha != null) {
-            ImageLoader.getInstance().displayImage(lastCaptcha.image, (ImageView) findViewById(R.id.captchaImg));
 
-        }
     }
 
     private boolean CheckPermission() {
@@ -115,11 +115,6 @@ public class SetFileFragment extends BaseFragment {
 
     private void callShortLinkSetApi(LinkManagementTargetActShortLinkSetRequest req) {
         //same as
-    }
-
-    @Override
-    public void onCaptchaReady(CaptchaResponce responce) {
-
     }
 
 
@@ -163,7 +158,6 @@ public class SetFileFragment extends BaseFragment {
             Toasty.warning(getContext(), "عدم دسترسی به اینترنت", Toasty.LENGTH_LONG, true).show();
         }
     }
-
 
 
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
