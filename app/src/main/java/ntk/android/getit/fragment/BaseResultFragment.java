@@ -68,6 +68,7 @@ abstract class BaseResultFragment extends BaseFragment {
 
     private void showQrCode() {
         String encdoedDataString = response.ShortLinkQRCodeBase64.replace("data:image/jpeg;base64,", "");
+        encdoedDataString = response.ShortLinkQRCodeBase64.replace("data:image/jpg;base64,", "");
 
         byte[] imageAsBytes = Base64.decode(encdoedDataString.getBytes(), 0);
         ((ImageView) findViewById(R.id.qrCodeImage)).setImageBitmap(BitmapFactory.decodeByteArray(

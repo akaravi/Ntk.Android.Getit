@@ -9,8 +9,6 @@ import android.os.Environment;
 import android.provider.DocumentsContract;
 import android.provider.MediaStore;
 
-import androidx.annotation.RequiresApi;
-
 public class FileManaging {
 
 
@@ -26,7 +24,9 @@ public class FileManaging {
                         return Environment.getExternalStorageDirectory() + "/" + split[1];
                     }
                 } else if (isDownloadsDocument(uri)) {
-                    final String id = DocumentsContract.getDocumentId(uri);
+                    String id = DocumentsContract.getDocumentId(uri);
+                    if (id.startsWith("raw:"))
+                        id = id.replaceFirst("raw:", "");
                     final Uri contentUri = ContentUris.withAppendedId(
                             Uri.parse("content://downloads/public_downloads"), Long.valueOf(id));
                     return getDataColumn(context, contentUri, null, null);
@@ -48,15 +48,17 @@ public class FileManaging {
                     };
                     return getDataColumn(context, contentUri, selection, selectionArgs);
                 }
-            } } else if ("content".equalsIgnoreCase(uri.getScheme())) {
-                return getDataColumn(context, uri, null, null);
-            } else if ("file".equalsIgnoreCase(uri.getScheme())) {
-                return uri.getPath();
             }
+        } else if ("content".equalsIgnoreCase(uri.getScheme())) {
+            return getDataColumn(context, uri, null, null);
+        } else if ("file".equalsIgnoreCase(uri.getScheme())) {
+            return uri.getPath();
+        }
 
 
         return null;
     }
+
     public static boolean isExternalStorageDocument(Uri uri) {
         return "com.android.externalstorage.documents".equals(uri.getAuthority());
     }
@@ -68,6 +70,7 @@ public class FileManaging {
     public static boolean isMediaDocument(Uri uri) {
         return "com.android.providers.media.documents".equals(uri.getAuthority());
     }
+
     public static String getDataColumn(Context context, Uri uri, String selection,
                                        String[] selectionArgs) {
         Cursor cursor = null;

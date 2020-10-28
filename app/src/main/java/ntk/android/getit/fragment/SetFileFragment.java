@@ -106,7 +106,7 @@ public class SetFileFragment extends BaseFragment {
                 req.UploadFileKey = uploadedString;
                 req.CaptchaKey = TicketingApp.getInstance().getCaptchaModel().Key;
                 callShortLinkSetApi(req);
-            }
+
         }
     }
 
