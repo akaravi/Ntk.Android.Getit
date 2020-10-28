@@ -4,15 +4,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:paddingLeft="123dp">
-
-    <TextView
+    android:paddingRight="16dp">
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="set File link short link" />
+        android:orientation="horizontal"
+        android:background="#F5F5F5"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set "
+            android:textColor="#17C2FC"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="File Short Link"
+            android:textColor="#E81123"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
 
     <RelativeLayout
+        android:padding="8dp"
         android:layout_width="wrap_content"
+        android:layout_gravity="center_horizontal"
         android:layout_height="wrap_content">
 
 
@@ -35,15 +55,14 @@
             android:layout_marginLeft="15sp"
             android:src="@drawable/ic_attach" />
 
-        <TextView
-            android:id="@+id/status"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/uploadBtn"
-            android:layout_alignBottom="@+id/uploadBtn"
-            android:layout_toRightOf="@+id/uploadBtn" />
-    </RelativeLayout>
 
+    </RelativeLayout>
+    <TextView
+        android:padding="8dp"
+        android:id="@+id/status"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+      />
     <include
         layout="@layout/sub_captcha"
         android:layout_width="match_parent"

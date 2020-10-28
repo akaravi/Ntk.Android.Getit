@@ -7,20 +7,58 @@
 
     android:paddingRight="16dp">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:background="#F5F5F5"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Get "
+            android:textColor="#17C2FC"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Short Link"
+            android:textColor="#E81123"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="qwp.ir"
+            android:textColor="#000"
+            android:textSize="16sp" />
+    </LinearLayout>
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:padding="8dp"
         android:text="you can Get Created short Link Only By key"
-        android:textColor="#fff" />
+        android:textColor="#000"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:textColor="#000"
+        android:layout_width="match_parent"
+        android:textSize="14sp"
+        android:layout_height="wrap_content"
+        android:text="Your Short Link key" />
 
     <EditText
         android:id="@+id/shortLinkEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="***@*****"
-
-        android:textColor="#fff" />
+        android:textColorHint="#4E4E4E"
+        android:textColor="#1E1E1E" />
 
     <include
         layout="@layout/sub_captcha"

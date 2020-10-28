@@ -10,8 +10,12 @@
         android:layout_height="100dp" />
 
     <EditText
+
         android:id="@+id/captchaEt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textColor="#fff" />
+        android:hint="Captcha Text"
+        android:textColor="#1E1E1E"
+
+        android:textColorHint="#4E4E4E" />
 </LinearLayout>

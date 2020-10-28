@@ -43,7 +43,7 @@ public class MainHelper {
             setExpand(3);
         });
         OnExpandListener listener = b -> {
-            if (b) new Handler().postDelayed(() -> showFragment(), 1000);
+            if (b) new Handler().postDelayed(() -> showFragment(), 300);
         };
         ((DoubleLiftLayout) v.findViewById(R.id.lift1)).setOnExpandListener(listener);
         ((DoubleLiftLayout) v.findViewById(R.id.lift2)).setOnExpandListener(listener);
@@ -87,18 +87,20 @@ public class MainHelper {
 
     public void showResultGetFragment(LinkManagementTargetActShortLinkGetResponce linkResponse) {
         FragmentTransaction ft = ac.getSupportFragmentManager().beginTransaction();
-        ResultGetFragment frag= ResultGetFragment.newInstance(new Gson().toJson(linkResponse));
+        ResultGetFragment frag = ResultGetFragment.newInstance(new Gson().toJson(linkResponse));
         ft.replace(R.id.framelayout, frag);
         ft.addToBackStack(null);
         ft.commit();
     }
+
     public void showResultSetFragment(LinkManagementTargetActShortLinkSetResponce linkResponse) {
         FragmentTransaction ft = ac.getSupportFragmentManager().beginTransaction();
-        ResultSetFragment frag= ResultSetFragment.newInstance(new Gson().toJson(linkResponse));
+        ResultSetFragment frag = ResultSetFragment.newInstance(new Gson().toJson(linkResponse));
         ft.replace(R.id.framelayout, frag);
         ft.addToBackStack(null);
         ft.commit();
     }
+
     private DoubleLiftLayout findLiftView(int k) {
         if (k == 0)
             return v.findViewById(R.id.lift1);

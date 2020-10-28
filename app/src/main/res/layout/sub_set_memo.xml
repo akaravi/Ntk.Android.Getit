@@ -1,18 +1,41 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:paddingRight="16dp">
 
-    <TextView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Set Memo Short Link" />
+        android:background="#F5F5F5"
+        android:orientation="horizontal"
+        android:padding="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Set "
+            android:textColor="#17C2FC"
+            android:textSize="16sp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Memo Short Link"
+            android:textColor="#E81123"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
     <EditText
         android:id="@+id/memoEt"
         android:layout_width="match_parent"
-        android:layout_height="300dp"
-        android:hint="Text and Memo" />
+        android:layout_height="200dp"
+        android:hint="Text and Memo"
+        android:textColor="#1E1E1E"
+        android:textColorHint="#4E4E4E" />
+
     <include
         layout="@layout/sub_captcha"
         android:layout_width="match_parent"
