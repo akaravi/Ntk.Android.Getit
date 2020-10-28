@@ -5,21 +5,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import androidx.fragment.app.Fragment;
-
 import com.google.gson.Gson;
 
 import ntk.android.getit.R;
+import ntk.base.api.linkManagemen.entity.LinkManagementTargetActShortLinkSet;
 import ntk.base.api.linkManagemen.model.LinkManagementTargetActShortLinkSetResponce;
 
-public class ResultSetFragment extends Fragment {
+public class ResultSetFragment extends BaseResultFragment {
 
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
-
-    LinkManagementTargetActShortLinkSetResponce shortLinkResponse;
 
 
     /**
@@ -43,7 +40,10 @@ public class ResultSetFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-            shortLinkResponse = new Gson().fromJson(getArguments().getString(ARG_PARAM1), LinkManagementTargetActShortLinkSetResponce.class);
+            LinkManagementTargetActShortLinkSet model = new Gson().fromJson(getArguments().getString(ARG_PARAM1), LinkManagementTargetActShortLinkSetResponce.class).Item;
+            response.Key = model.Key;
+            response.ShortLinkUrl = model.ShortLinkUrl;
+            response.ShortLinkQRCodeBase64 = model.ShortLinkQRCodeBase64;
         }
     }
 

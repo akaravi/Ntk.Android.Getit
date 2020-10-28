@@ -95,7 +95,8 @@ public class GetLinkFragment extends BaseFragment {
                             else {
                                 Toasty.warning(getContext(), linkResponse.ErrorMessage, Toasty.LENGTH_LONG, true).show();
                                 getBaseActivity().getCaptchaApi(GetLinkFragment.this);
-                            }  }
+                            }
+                        }
 
                         @Override
                         public void onError(@io.reactivex.annotations.NonNull Throwable e) {

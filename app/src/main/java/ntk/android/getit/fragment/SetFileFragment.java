@@ -96,14 +96,11 @@ public class SetFileFragment extends BaseFragment {
 
     private void callApi() {
         String captchaText = ((EditText) findViewById(R.id.captchaEt)).getText().toString();
-        if (fileName == null)
-            Toasty.warning(getContext(), "فایل اپلود انتخاب نشده است", Toasty.LENGTH_LONG, true).show();
+        if (uploadedString == null)
+            Toasty.warning(getContext(), "فایلی اپلود نشده است", Toasty.LENGTH_LONG, true).show();
         else if (captchaText.trim().equals(""))
             Toasty.warning(getContext(), "متن کپچا وارد نشده است", Toasty.LENGTH_LONG, true).show();
         else {
-            if (uploadedString.equals(""))
-                UploadFileToServer();
-            else {
                 LinkManagementTargetActShortLinkSetRequest req = new LinkManagementTargetActShortLinkSetRequest();
                 req.CaptchaText = captchaText;
                 req.UploadFileKey = uploadedString;
@@ -170,8 +167,8 @@ public class SetFileFragment extends BaseFragment {
             if (resultData != null) {
                 uri = resultData.getData();
                 if (uri != null) {
-
                     fileName = uri;
+                    UploadFileToServer();
                 }
             }
         }
