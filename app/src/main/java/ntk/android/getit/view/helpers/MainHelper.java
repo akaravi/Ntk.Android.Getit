@@ -3,6 +3,8 @@ package ntk.android.getit.view.helpers;
 import android.os.Handler;
 import android.view.View;
 
+import androidx.cardview.widget.CardView;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.FragmentTransaction;
 
 import com.google.gson.Gson;
@@ -54,8 +56,11 @@ public class MainHelper {
     public void setExpand(int k) {
 
         findLiftView(k).expand();
-        if (prevSelected != -1 && prevSelected != k)
+        findCardView(k).setCardBackgroundColor(ContextCompat.getColor(ac, R.color.purple_700));
+        if (prevSelected != -1 && prevSelected != k) {
             findLiftView(prevSelected).collapse();
+            findCardView(prevSelected).setCardBackgroundColor(ContextCompat.getColor(ac, R.color.colorPrimary));
+        }
         prevSelected = k;
 
     }
@@ -113,5 +118,16 @@ public class MainHelper {
         return null;
     }
 
+    private CardView findCardView(int k) {
+        if (k == 0)
+            return v.findViewById(R.id.bt1);
+        if (k == 1)
+            return v.findViewById(R.id.bt2);
+        if (k == 2)
+            return v.findViewById(R.id.bt3);
+        if (k == 3)
+            return v.findViewById(R.id.bt4);
+        return null;
+    }
 
 }

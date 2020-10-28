@@ -10,7 +10,10 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:paddingLeft="8dp"
+        android:paddingTop="16dp"
+        android:paddingRight="8dp">
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -21,64 +24,105 @@
                 android:id="@+id/keyWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="KEY:" />
+                android:text="KEY:"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="URL:" />
+                android:paddingTop="8dp"
+                android:text="URL:"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/shortUrlWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Short Url:" />
+                android:paddingTop="8dp"
+                android:text="Short Url:"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/DescriptionWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Description" />
+                android:paddingTop="8dp"
+                android:text="Description:"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/UrlAddressWord"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Url Address" />
+                android:paddingTop="8dp"
+                android:text="Url Address:"
+                android:textColor="#000"
+                android:textSize="16sp" />
         </LinearLayout>
 
 
         <LinearLayout
+            android:layout_marginLeft="8dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+
+            android:paddingRight="8dp">
 
             <TextView
                 android:id="@+id/keyTxt"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="awad" />
+
+                android:text="awad"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/urlTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:paddingTop="8dp"
+                android:text="awad"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/shortUrlTxt"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content" />
+                android:layout_height="wrap_content"
+                android:autoLink="web"
+                android:paddingTop="8dp"
+                android:text="awad"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/DescriptionTxt"
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="awad" />
+                android:paddingTop="8dp"
+                android:text="awad"
+                android:textColor="#000"
+                android:textSize="16sp" />
+
             <TextView
+
                 android:id="@+id/UrlAddressTxt"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="awad" />
+                android:paddingTop="8dp"
+                android:text="awad"
+                android:textColor="#000"
+                android:textSize="16sp" />
 
         </LinearLayout>
     </LinearLayout>

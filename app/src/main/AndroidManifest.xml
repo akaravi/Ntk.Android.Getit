@@ -19,6 +19,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.NtkAndroidGetit">
+
         <activity
             android:name=".activity.MainActivity"
             android:label="@string/app_name"
