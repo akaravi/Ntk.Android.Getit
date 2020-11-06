@@ -1,6 +1,7 @@
 package ntk.android.getit.activity;
 
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.widget.TextView;
@@ -19,12 +20,13 @@ public class SplashActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
+        ((TextView) findViewById(R.id.getitTxt)).setTypeface(Typeface.createFromAsset(getAssets(), "fonts/HARLOWSI.TTF"));
         ((TextView) findViewById(R.id.corpTv)).setText("@NTK");
-        ((TextView) findViewById(R.id.corpTv)).setText("Version  "+(BuildConfig.VERSION_NAME));
+        ((TextView) findViewById(R.id.corpTv)).setText("Version  " + (BuildConfig.VERSION_NAME));
         new Handler().postDelayed(() -> {
 //                Loading.setVisibility(View.GONE);
-            startActivity(new Intent(SplashActivity.this, MainAcstivity.class));
-            finish();
+//            startActivity(new Intent(SplashActivity.this, MainAcstivity.class));
+//            finish();
         }, TIME);
         return;
     }

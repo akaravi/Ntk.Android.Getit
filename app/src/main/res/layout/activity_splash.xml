@@ -2,8 +2,17 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="#673AB7">
+    android:layout_height="match_parent">
+
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/splashLottieBg"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/gradeint" />
 
     <View
         android:id="@+id/center"
@@ -13,26 +22,26 @@
 
     <com.airbnb.lottie.LottieAnimationView
         android:id="@+id/splashLottie"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="-40dp"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+      android:layout_below="@+id/center"
+    android:layout_centerHorizontal="true" android:scaleType="fitXY"
         app:lottie_autoPlay="true"
         app:lottie_loop="true"
         app:lottie_rawRes="@raw/uploadsfiles" />
 
     <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/center"
+        android:id="@+id/getitTxt"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_below="@+id/center"
         android:layout_centerInParent="true"
-        android:layout_marginBottom="100dp"
         android:gravity="center"
         android:shadowColor="@color/purple_700"
         android:shadowDx="24"
         android:shadowRadius="22"
         android:text="GetIt"
-        android:textColor="#FF2D39"
+        android:textColor="#220002"
         android:textSize="44sp"
         android:textStyle="bold" />
 
