@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+NtkCmsBuild.bat
+NtkCmsGitPull.bat
